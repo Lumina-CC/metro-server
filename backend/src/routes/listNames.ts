@@ -4,7 +4,7 @@ import { sqlp } from '../modules/db';
 import NameDetails from '../types/NameDetails';
 
 export default async (req: Request, res: Response) => {
-    const [results] = await sqlp.query(`SELECT * FROM names WHERE owner=${escape(req.params.address)};`);
+    const [results] = await sqlp.query(`SELECT * FROM names WHERE owner=${escape(req.params.address)} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
     const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names WHERE owner=${escape(req.params.address)};`);
     const records = results as NameDetails[];
 
