@@ -14,5 +14,6 @@ app.get('/addresses/:address/transactions', offsetLimitParser, listTransactions)
 app.get('/addresses/:address/names', offsetLimitParser, listNames);
 
 app.get('/lookup/addresses/:address', offsetLimitParser, getAddress);
+app.get('/lookup/transactions/:address', offsetLimitParser, listTransactions);
 
 app.listen(3000, () => console.log('Server Started!'));
