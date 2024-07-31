@@ -5,7 +5,7 @@ import TransactionDetails from '../types/TransactionDetails';
 
 export default async (req: Request, res: Response) => {
     const [results] = await sqlp.query(`SELECT * FROM transactions WHERE wallet_to=${escape(req.params.address)} OR wallet_from=${escape(req.params.address)};`);
-    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM transactions; WHERE wallet_to=${escape(req.params.address)} OR wallet_from=${escape(req.params.address)};`);
+    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM transactions WHERE wallet_to=${escape(req.params.address)} OR wallet_from=${escape(req.params.address)};`);
     const records = results as TransactionDetails[];
 
 

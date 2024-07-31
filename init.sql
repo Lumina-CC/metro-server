@@ -39,6 +39,8 @@ CREATE TABLE
     names (
         address VARCHAR(24) NOT NULL,
         owner CHAR(10) NOT NULL,
+        original_owner CHAR(10) NOT NULL,
         registered DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+        transferred DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         PRIMARY KEY (address)
     );
