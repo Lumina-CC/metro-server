@@ -4,7 +4,7 @@ export default (req: Request, res: Response, next: NextFunction): void => {
     let limit = 50;
     let offset = 0;
     if (req.query.limit) {
-        if (!parseInt(req.query.limit as string)) {
+        if (typeof parseInt(req.query.limit as string) != 'number') {
             res.status(406).send({
                 ok: false,
                 error: 'limit_not_number',
@@ -27,6 +27,14 @@ export default (req: Request, res: Response, next: NextFunction): void => {
             res.status(406).send({
                 ok: false,
                 error: 'offset_not_number',
+            });
+            return;
+        };
+
+        if (parseInt(req.query.offset as string) < 0) {
+            res.status(406).send({
+                ok: false,
+                error: 'offset_too_low',
             });
             return;
         };

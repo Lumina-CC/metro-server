@@ -7,4 +7,5 @@ export default interface WalletDetails {
     totalout: number,
     locked: boolean,
     flare: string,
+    names?: number,
 };

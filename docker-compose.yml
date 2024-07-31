@@ -22,6 +22,7 @@ services:
       - DBKEY=${BACKENDDBKEY}
     ports:
       - 3000:3000
+#   restart: unless-stopped -- commented out for development
 
 volumes:
   db:
