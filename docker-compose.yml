@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=metro
+      - MYSQL_ROOT_PASSWORD=${DBKEY}
+      - MYSQL_HOST=%
+    ports:
+      - 3306:3306
+  tempdbadmin:
+    image: phpmyadmin
+    ports:
+      - 3001:80
+  backend:
+    build: ./backend
+    environment:
+      - DBKEY=${BACKENDDBKEY}
+    ports:
+      - 3000:3000
+
+volumes:
+  db:
