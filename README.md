@@ -22,6 +22,7 @@ GRANT ALL PRIVILEGES ON *.* TO metroweb;
 - Address creation algorithm
 - Reverse proxies (nginx)
 - Documentation
+- Automated testing
 
 
 ## Breaking update changes

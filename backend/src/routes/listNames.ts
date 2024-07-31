@@ -4,8 +4,33 @@ import { sqlp } from '../modules/db';
 import NameDetails from '../types/NameDetails';
 
 export default async (req: Request, res: Response) => {
-    const [results] = await sqlp.query(`SELECT * FROM names WHERE owner=${escape(req.params.address)} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
-    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names WHERE owner=${escape(req.params.address)};`);
+    let orderBy: 'address' | 'owner' | 'original_owner' | 'registered' | 'updated' = 'address';
+    if (req.query.orderBy) {
+        if (['address', 'owner', 'original_owner', 'registered', 'updated'].includes(req.query.orderBy as string)) {
+            orderBy = req.query.orderBy as any;
+        } else {
+            res.status(406).send({
+                ok: false,
+                error: 'invalid_orderby_value',
+            });
+            return;
+        };
+    };
+    let order: 'ASC' | 'DESC' = 'ASC';
+    if (req.query.order) {
+        if (['ASC', 'DESC'].includes(req.query.order as string)) {
+            order = req.query.order as any;
+        } else {
+            res.status(406).send({
+                ok: false,
+                error: 'invalid_order_value',
+            });
+            return;
+        };
+    };
+
+    const [results] = await sqlp.query(`SELECT * FROM names WHERE ${req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR ')} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
+    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names WHERE ${req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR ')};`);
     const records = results as NameDetails[];
 
     res.send({
@@ -20,6 +45,7 @@ export default async (req: Request, res: Response) => {
                 updated: record.updated,
                 transferred: record.updated, // No record contents other than transferring, pass same value for compatibility
                 a: null, // Does not serve a functional purpose in Krist, not being implemented in Metro. Returns for compatibility
+                unpaid: 0, // don't even know why this is in Krist, but still returning it for compatibility. Might remove in the future.
             };
         }),
     });

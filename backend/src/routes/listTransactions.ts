@@ -4,9 +4,9 @@ import { sqlp } from '../modules/db';
 import TransactionDetails from '../types/TransactionDetails';
 
 export default async (req: Request, res: Response) => {
-    let orderBy: 'id' | 'from' | 'to' | 'value' | 'time' | 'name' | 'metaname' = 'time';
+    let orderBy: 'id' | 'from' | 'to' | 'value' | 'timestamp' | 'name' | 'metaname' = 'timestamp';
     if (req.query.orderBy) {
-        if (['id', 'from', 'to', 'value', 'time', 'name', 'metaname'].includes(req.query.orderBy as string)) {
+        if (['id', 'from', 'to', 'value', 'timestamp', 'name', 'metaname'].includes(req.query.orderBy as string)) {
             orderBy = req.query.orderBy as any;
         } else {
             res.status(406).send({
@@ -25,8 +25,8 @@ export default async (req: Request, res: Response) => {
                 ok: false,
                 error: 'invalid_order_value',
             });
+            return;
         };
-        return;
     };
 
     const [results] = await sqlp.query(`SELECT * FROM transactions WHERE ${req.params.address.split(',').map((address) =>  `wallet_to=${escape(address)} OR wallet_from=${escape(address)}`).join(' OR ')} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
