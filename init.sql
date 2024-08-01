@@ -44,3 +44,15 @@ CREATE TABLE
         transferred DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         PRIMARY KEY (address)
     );
+
+
+CREATE TABLE
+    namehistory (
+        id CHAR(36) NOT NULL,
+        address VARCHAR(24) NOT NULL,
+        wallet_to CHAR(10) NOT NULL,
+        wallet_from char(10) DEFAULT NULL,
+        timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+        type ENUM('transfer', 'purchase'),
+        PRIMARY KEY (id)
+    );

@@ -32,3 +32,17 @@ GRANT ALL PRIVILEGES ON *.* TO metroweb;
 ALTER TABLE names ADD COLUMN original_owner CHAR(10) NOT NULL;
 ALTER TABLE names ADD COLUMN transferred DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP();
 ```
+
+- `8th commit`: Added table `namehistory`. Migrate using:
+```sql
+CREATE TABLE
+    namehistory (
+        id CHAR(36) NOT NULL,
+        address VARCHAR(24) NOT NULL,
+        wallet_to CHAR(10) NOT NULL,
+        wallet_from char(10) DEFAULT NULL,
+        timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+        type ENUM('transfer', 'purchase'),
+        PRIMARY KEY (id)
+    );
+```
