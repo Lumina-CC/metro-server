@@ -3,6 +3,8 @@ Metro is a universal currency designed for Minecraft servers, in a mostly Krist-
 
 **⚠️ metro-server is not complete, and is in a development state. APIs may not function, and all content in the repo has not been tested. Further testing will be performed after record creation logic is completed.**
 
+**⚠️ ALL commits past 8/2/2024 now follow the [ametro-30-dbq-1](LICENSE.md) license**
+
 ## Creating a development environment
 Running metro-server isn't hard to do in a development environment. In fact, you can do so in 5 steps.
 - Create a .env file:
