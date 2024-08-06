@@ -48,3 +48,9 @@ CREATE TABLE
         PRIMARY KEY (id)
     );
 ```
+
+- `13th commit`: Changed columns under table `wallets`. Migrate using:
+```sql
+ALTER TABLE transactions MODIFY COLUMN type ENUM('transfer', 'name_purchase', 'name_transfer', 'tax') NOT NULL;
+ALTER TABLE transactions ADD COLUMN state ENUM('completed', 'pending', 'reverted', 'held') NOT NULL DEFAULT 'pending';
+```
