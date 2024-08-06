@@ -3,7 +3,7 @@ USE metro;
 CREATE TABLE
     wallets (
         address CHAR(10) NOT NULL,
-        pkeyhash CHAR(64),
+        pkeyhash CHAR(64) DEFAULT NULL,
         balance BIGINT UNSIGNED NOT NULL DEFAULT 0,
         firstSeen DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         totalin BIGINT UNSIGNED NOT NULL DEFAULT 0,

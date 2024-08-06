@@ -8,6 +8,7 @@ import listNames from './routes/listNames';
 import listTransactions from './routes/listTransactions';
 import search from './routes/search';
 import * as bodyParser from 'body-parser';
+import login from './routes/login';
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.get('/lookup/names/:name/history', offsetLimitParser, getNameHistory);
 app.get('/lookup/names/:name/transactions', offsetLimitParser, getNameTransactions);
 app.get('/search', search);
 app.post('/search', bodyParser.text(), search);
+app.post('/login', bodyParser.json(), login);
 
 app.listen(3000, () => console.log('Server Started!'));
