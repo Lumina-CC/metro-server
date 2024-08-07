@@ -27,6 +27,7 @@ export default async (req: Request, res: Response) => {
     const namerecords = nameResults as NameDetails[];
 
     res.send({
+        ok: true,
         query: {
             originalQuery: oq.slice(1, -1),
             matchAddress: (walletrecords.length > 0),

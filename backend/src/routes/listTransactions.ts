@@ -35,6 +35,7 @@ export default async (req: Request, res: Response) => {
 
 
     res.send({
+        ok: true,
         count: records.length,
         total: countres[0][Object.keys(countres[0])[0]],
         transactions: records.map((record) => {

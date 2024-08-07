@@ -34,6 +34,7 @@ export default async (req: Request, res: Response) => {
     const records = results as NameHistoryRecord[];
 
     res.send({
+        ok: true,
         count: records.length,
         total: countres[0][Object.keys(countres[0])[0]],
         transactions: records.map((record) => {

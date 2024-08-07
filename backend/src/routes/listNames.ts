@@ -29,11 +29,12 @@ export default async (req: Request, res: Response) => {
         };
     };
 
-    const [results] = await sqlp.query(`SELECT * FROM names WHERE ${req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR ')} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
-    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names WHERE ${req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR ')};`);
+    const [results] = await sqlp.query(`SELECT * FROM names${(req.path == '/names') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
+    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names${(req.path == '/names') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`};`);
     const records = results as NameDetails[];
 
     res.send({
+        ok: true,
         count: records.length,
         total: countres[0][Object.keys(countres[0])[0]],
         names: records.map((record) => {

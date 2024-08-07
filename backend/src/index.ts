@@ -31,5 +31,6 @@ app.post('/login', bodyParser.json(), login);
 app.post('/v2', bodyParser.json(), v2);
 app.post('/keylookup', bodyParser.json(), v2);
 app.get('/names/:name', getName);
+app.get('/names', offsetLimitParser, listNames);
 
 app.listen(3000, () => console.log('Server Started!'));
