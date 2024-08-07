@@ -11,6 +11,7 @@ import * as bodyParser from 'body-parser';
 import login from './routes/login';
 import v2 from './routes/v2';
 import getName from './routes/getName';
+import nameCost from './routes/nameCost';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.post('/v2', bodyParser.json(), v2);
 app.post('/keylookup', bodyParser.json(), v2);
 app.get('/names', offsetLimitParser, listNames);
 app.get('/names/new', offsetLimitParser, listNames);
+app.get('/names/cost', nameCost);
 app.get('/names/:name', getName);
 
 app.listen(3000, () => console.log('Server Started!'));
