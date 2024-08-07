@@ -9,6 +9,7 @@ import listTransactions from './routes/listTransactions';
 import search from './routes/search';
 import * as bodyParser from 'body-parser';
 import login from './routes/login';
+import v2 from './routes/v2';
 
 const app = express();
 
@@ -26,5 +27,7 @@ app.get('/lookup/names/:name/transactions', offsetLimitParser, getNameTransactio
 app.get('/search', search);
 app.post('/search', bodyParser.text(), search);
 app.post('/login', bodyParser.json(), login);
+app.post('/v2', bodyParser.json(), v2);
+app.post('/keylookup', bodyParser.json(), v2);
 
 app.listen(3000, () => console.log('Server Started!'));
