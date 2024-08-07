@@ -4,7 +4,7 @@ import { sqlp } from '../modules/db';
 import NameDetails from '../types/NameDetails';
 
 export default async (req: Request, res: Response) => {
-    let orderBy: 'address' | 'owner' | 'original_owner' | 'registered' | 'updated' = 'address';
+    let orderBy: 'address' | 'owner' | 'original_owner' | 'registered' | 'updated' = 'registered';
     if (req.query.orderBy) {
         if (['address', 'owner', 'original_owner', 'registered', 'updated'].includes(req.query.orderBy as string)) {
             orderBy = req.query.orderBy as any;
@@ -16,7 +16,7 @@ export default async (req: Request, res: Response) => {
             return;
         };
     };
-    let order: 'ASC' | 'DESC' = 'ASC';
+    let order: 'ASC' | 'DESC' = (req.path == '/names/new') ? 'DESC' : 'ASC';
     if (req.query.order) {
         if (['ASC', 'DESC'].includes(req.query.order as string)) {
             order = req.query.order as any;
@@ -29,8 +29,8 @@ export default async (req: Request, res: Response) => {
         };
     };
 
-    const [results] = await sqlp.query(`SELECT * FROM names${(req.path == '/names') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
-    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names${(req.path == '/names') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`};`);
+    const [results] = await sqlp.query(`SELECT * FROM names${(req.path == '/names' || req.path == '/names/new') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
+    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM names${(req.path == '/names' || req.path == '/names/new') ? '' : ` WHERE ${(req.params.address.split(',').map((address) => `owner=${escape(address)}`).join(' OR '))}`};`);
     const records = results as NameDetails[];
 
     res.send({
