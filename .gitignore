@@ -1,3 +1,4 @@
 backend/node_modules
 backend/dist
 .env
+backend/badwords.txt

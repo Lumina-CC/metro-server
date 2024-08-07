@@ -6,10 +6,18 @@ Metro is a universal currency designed for Minecraft servers, in a mostly Krist-
 **⚠️ ALL commits past 8/2/2024 now follow the [ametro-30-dbq-1](LICENSE.md) license**
 
 ## Creating a development environment
-Running metro-server isn't hard to do in a development environment. In fact, you can do so in 5 steps.
+Running metro-server isn't hard to do in a development environment. In fact, you can do so in 6 steps.
 - Create a .env file:
     - `DBKEY`: The password/key for the `root` MySQL user
     - `BACKENDDBKEY`: The password/key for the `metroweb` MySQL user
+- Create `/backend/badwords.txt`:
+It's a normal text file, with one blocked phrase per line. An example is:
+```
+word1
+word2
+word3
+```
+This is not included in the repo for obvious reasons.
 - Spin up Metro in Docker
 - Execute `init.sql` in `metro-server-db`
 - Create the user `metroweb` in MySQL
@@ -54,3 +62,5 @@ CREATE TABLE
 ALTER TABLE transactions MODIFY COLUMN type ENUM('transfer', 'name_purchase', 'name_transfer', 'tax') NOT NULL;
 ALTER TABLE transactions ADD COLUMN state ENUM('completed', 'pending', 'reverted', 'held') NOT NULL DEFAULT 'pending';
 ```
+
+- `19th commit`: Added `badwords.txt`. Read development environment creation step for more details.

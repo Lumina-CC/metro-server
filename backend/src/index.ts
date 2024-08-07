@@ -12,6 +12,7 @@ import login from './routes/login';
 import v2 from './routes/v2';
 import getName from './routes/getName';
 import nameCost from './routes/nameCost';
+import checkName from './routes/checkName';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.post('/keylookup', bodyParser.json(), v2);
 app.get('/names', offsetLimitParser, listNames);
 app.get('/names/new', offsetLimitParser, listNames);
 app.get('/names/cost', nameCost);
+app.get('/names/check/:name', checkName)
 app.get('/names/:name', getName);
 
 app.listen(3000, () => console.log('Server Started!'));
