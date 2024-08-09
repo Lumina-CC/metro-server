@@ -6,7 +6,7 @@ import NameDetails from '../types/NameDetails';
 
 export default async (req: Request, res: Response) => {
     const [results] = await sqlp.query(`SELECT * FROM names WHERE address=${escape(req.params.name)};`);
-    let reason;
+    let reason: string;
 
     if ((results as NameDetails[]).length != 0) {
         reason = 'taken';

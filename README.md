@@ -64,3 +64,13 @@ ALTER TABLE transactions ADD COLUMN state ENUM('completed', 'pending', 'reverted
 ```
 
 - `19th commit`: Added `badwords.txt`. Read development environment creation step for more details.
+
+- `20th commit`: Renamed `namehistory` column `id` to `uuid`. Migrate using:
+```sql
+ALTER TABLE namehistory RENAME COLUMN id TO uuid;
+```
+
+- `20th commit`: Changed column `pkeyhash` on `wallets` to `NOT NULL`. Migrate using:
+```sql
+ALTER TABLE wallets MODIFY pkeyhash CHAR(128) NOT NULL;
+```

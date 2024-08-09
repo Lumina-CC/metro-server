@@ -13,6 +13,7 @@ import v2 from './routes/v2';
 import getName from './routes/getName';
 import nameCost from './routes/nameCost';
 import checkName from './routes/checkName';
+import registerName from './routes/registerName';
 
 const app = express();
 
@@ -37,5 +38,6 @@ app.get('/names/new', offsetLimitParser, listNames);
 app.get('/names/cost', nameCost);
 app.get('/names/check/:name', checkName)
 app.get('/names/:name', getName);
+app.post('/names/:name', bodyParser.json(), registerName);
 
 app.listen(3000, () => console.log('Server Started!'));

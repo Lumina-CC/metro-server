@@ -3,7 +3,7 @@ USE metro;
 CREATE TABLE
     wallets (
         address CHAR(10) NOT NULL,
-        pkeyhash CHAR(64) DEFAULT NULL,
+        pkeyhash CHAR(128) NOT NULL,
         balance BIGINT UNSIGNED NOT NULL DEFAULT 0,
         firstSeen DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         totalin BIGINT UNSIGNED NOT NULL DEFAULT 0,
@@ -49,7 +49,7 @@ CREATE TABLE
 
 CREATE TABLE
     namehistory (
-        id CHAR(36) NOT NULL,
+        uuid CHAR(36) NOT NULL,
         address VARCHAR(24) NOT NULL,
         wallet_to CHAR(10) NOT NULL,
         wallet_from char(10) DEFAULT NULL,

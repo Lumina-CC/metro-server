@@ -3,6 +3,7 @@ import { sqlp } from '../modules/db';
 import * as crypto from 'node:crypto';
 import { escape } from 'mysql2';
 import { hashPrivateKey, computeWalletAddress } from '../modules/pkeyconv';
+import { getWallet } from '../modules/getWallet';
 
 export default async (req: Request, res: Response) => {
     if (!req.body.privatekey) {
@@ -13,11 +14,10 @@ export default async (req: Request, res: Response) => {
         });
         return;
     };
-    const pkeyhash = hashPrivateKey(req.body.privatekey);
+    
+    const walletinfo = await getWallet(req.body.privatekey);
 
-    const [result] = await sqlp.query(`SELECT COUNT(*) FROM wallets WHERE pkeyhash=${escape(pkeyhash)}`);
-
-    if (result[0][Object.keys(result[0])[0]] == 1) {
+    if (walletinfo) {
         const address = computeWalletAddress(req.body.privatekey);
         res.send({
             ok: true,
