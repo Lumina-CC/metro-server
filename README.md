@@ -74,3 +74,8 @@ ALTER TABLE namehistory RENAME COLUMN id TO uuid;
 ```sql
 ALTER TABLE wallets MODIFY pkeyhash CHAR(128) NOT NULL;
 ```
+
+- `21st commit`: Changed column `type` on `transactions`. Migrate using:
+```sql
+ALTER TABLE transactions MODIFY COLUMN type ENUM('transfer', 'tax') NOT NULL;
+```

@@ -4,6 +4,14 @@ import { sqlp } from '../modules/db';
 import NameDetails from '../types/NameDetails';
 
 export default async (req: Request, res: Response) => {
+    if (!req.params.address) {
+        res.status(406).send({
+            ok: false,
+            error: 'invalid_address',
+        });
+        return;
+    };
+
     let orderBy: 'address' | 'owner' | 'original_owner' | 'registered' | 'updated' = 'registered';
     if (req.query.orderBy) {
         if (['address', 'owner', 'original_owner', 'registered', 'updated'].includes(req.query.orderBy as string)) {
@@ -45,8 +53,6 @@ export default async (req: Request, res: Response) => {
                 registered: record.registered,
                 updated: record.updated,
                 transferred: record.updated, // No record contents other than transferring, pass same value for compatibility
-                a: null, // Does not serve a functional purpose in Krist, not being implemented in Metro. Returns for compatibility
-                unpaid: 0, // don't even know why this is in Krist, but still returning it for compatibility. Might remove in the future.
             };
         }),
     });

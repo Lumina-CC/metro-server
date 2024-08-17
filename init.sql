@@ -22,7 +22,7 @@ CREATE TABLE
         timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         metaname VARCHAR(24) DEFAULT NULL,
         name VARCHAR (24) DEFAULT NULL,
-        type ENUM('transfer', 'name_purchase', 'name_transfer', 'tax') NOT NULL,
+        type ENUM('transfer', 'tax') NOT NULL,
         metadata VARCHAR(512) DEFAULT NULL,
         PRIMARY KEY (uuid),
         state ENUM('completed', 'pending', 'reverted', 'held') NOT NULL DEFAULT 'pending',

@@ -7,6 +7,6 @@ export default interface TransactionDetails {
     metaname?: string,
     name?: string,
     metadata?: string,
-    type: 'transfer' | 'name_purchase' | 'name_transfer' | 'tax',
+    type: 'transfer' | 'tax',
     state: 'completed' |'pending' | 'reverted' | 'held',
 };

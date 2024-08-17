@@ -20,7 +20,7 @@ services:
     build: ./backend
     environment:
       - DBKEY=${BACKENDDBKEY}
-      - MASTERWALLET=metromainw
+      - MASTERWALLET=mbqpqmrb9m
     ports:
       - 3000:3000
 #   restart: unless-stopped -- commented out for development

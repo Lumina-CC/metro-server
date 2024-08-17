@@ -14,6 +14,7 @@ import getName from './routes/getName';
 import nameCost from './routes/nameCost';
 import checkName from './routes/checkName';
 import registerName from './routes/registerName';
+import transferName from './routes/transferName';
 
 const app = express();
 
@@ -36,7 +37,8 @@ app.post('/keylookup', bodyParser.json(), v2);
 app.get('/names', offsetLimitParser, listNames);
 app.get('/names/new', offsetLimitParser, listNames);
 app.get('/names/cost', nameCost);
-app.get('/names/check/:name', checkName)
+app.get('/names/check/:name', checkName);
+app.post('/names/:name/transfer', bodyParser.json(), transferName);
 app.get('/names/:name', getName);
 app.post('/names/:name', bodyParser.json(), registerName);
 
