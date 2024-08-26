@@ -42,6 +42,7 @@ app.post('/names/:name/transfer', bodyParser.json(), transferName);
 app.get('/names/:name', getName);
 app.post('/names/:name', bodyParser.json(), registerName);
 app.get('/transactions', offsetLimitParser, listTransactions);
+app.get('/transactions/latest', offsetLimitParser, listTransactions);
 
 app.all('*', async (req, res) => {
     res.status(404).send({
