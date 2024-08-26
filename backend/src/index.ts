@@ -15,6 +15,7 @@ import nameCost from './routes/nameCost';
 import checkName from './routes/checkName';
 import registerName from './routes/registerName';
 import transferName from './routes/transferName';
+import getTransaction from './routes/getTransaction';
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.get('/names/:name', getName);
 app.post('/names/:name', bodyParser.json(), registerName);
 app.get('/transactions', offsetLimitParser, listTransactions);
 app.get('/transactions/latest', offsetLimitParser, listTransactions);
+app.get('/transactions/:transaction', getTransaction);
 
 app.all('*', async (req, res) => {
     res.status(404).send({
