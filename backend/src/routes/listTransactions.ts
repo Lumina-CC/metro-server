@@ -29,8 +29,8 @@ export default async (req: Request, res: Response) => {
         };
     };
 
-    const [results] = await sqlp.query(`SELECT * FROM transactions WHERE ${req.params.address.split(',').map((address) =>  `wallet_to=${escape(address)} OR wallet_from=${escape(address)}`).join(' OR ')} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
-    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM transactions WHERE ${req.params.address.split(',').map((address) =>  `wallet_to=${escape(address)} OR wallet_from=${escape(address)}`).join(' OR ')};`);
+    const [results] = await sqlp.query(`SELECT * FROM transactions ${(req.params.address) ? `WHERE ${req.params.address.split(',').map((address) =>  `wallet_to=${escape(address)} OR wallet_from=${escape(address)}`).join(' OR ')}` : ''} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit} OFFSET ${res.locals.offset};`);
+    const [countres] = await sqlp.query(`SELECT COUNT(*) FROM transactions ${(req.params.address) ? `WHERE ${req.params.address.split(',').map((address) =>  `wallet_to=${escape(address)} OR wallet_from=${escape(address)}`).join(' OR ')}` : ''} ORDER BY ${orderBy} ${order} LIMIT ${res.locals.limit};`);
     const records = results as TransactionDetails[];
 
 

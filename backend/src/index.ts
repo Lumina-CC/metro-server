@@ -41,5 +41,13 @@ app.get('/names/check/:name', checkName);
 app.post('/names/:name/transfer', bodyParser.json(), transferName);
 app.get('/names/:name', getName);
 app.post('/names/:name', bodyParser.json(), registerName);
+app.get('/transactions', offsetLimitParser, listTransactions);
+
+app.all('*', async (req, res) => {
+    res.status(404).send({
+        ok: false,
+        error: 'page_not_found',
+    });
+});
 
 app.listen(3000, () => console.log('Server Started!'));
